@@ -1,6 +1,7 @@
 import LlamaNav from "@/components/LlamaNav";
 import Hero from "@/components/Hero";
 import DestinationCard from "@/components/DestinationCard";
+import SubscribeButton from "@/components/SubscribeButton";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Heart, Compass, Calendar, Shield } from "lucide-react";
@@ -139,11 +140,21 @@ const Index = () => {
             <p className="text-lg text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
               Let's plan something amazing together! I'm Lleonard, and I promise to make it fun and stress-free.
             </p>
-            <Link to="/plan">
-              <Button variant="outline" size="lg" className="bg-card hover:bg-card/90">
-                Start Planning Now
-              </Button>
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <SubscribeButton 
+                priceId={import.meta.env.VITE_STRIPE_PRICE_ID}
+                variant="outline"
+                size="lg"
+                className="bg-card hover:bg-card/90"
+              >
+                Subscribe for $1/month
+              </SubscribeButton>
+              <Link to="/plan">
+                <Button variant="outline" size="lg" className="bg-card/80 hover:bg-card/70">
+                  Try Free Planning
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
