@@ -10,6 +10,109 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 app.use(cors({
   origin: process.env.VITE_APP_URL || 'http://localhost:8080'
 }));
+
+// Webhook endpoint needs raw body - must come BEFORE express.json()
+app.post('/api/webhook', express.raw({type: 'application/json'}), async (req, res) => {
+  const sig = req.headers['stripe-signature'];
+  const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+  
+  let event;
+
+  try {
+    // Verify webhook signature
+    event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+  } catch (err) {
+    console.error('⚠️ Webhook signature verification failed:', err.message);
+    return res.status(400).send(`Webhook Error: ${err.message}`);
+  }
+
+  // Handle the event
+  console.log(`📬 Received event: ${event.type} [${event.id}]`);
+
+  try {
+    switch (event.type) {
+      case 'customer.subscription.created': {
+        const subscription = event.data.object;
+        console.log('✅ New subscription created:', subscription.id);
+        console.log('   Customer:', subscription.customer);
+        console.log('   Status:', subscription.status);
+        // TODO: Save subscription to your database
+        // TODO: Grant customer access to premium features
+        break;
+      }
+
+      case 'customer.subscription.updated': {
+        const subscription = event.data.object;
+        console.log('🔄 Subscription updated:', subscription.id);
+        console.log('   Status:', subscription.status);
+        console.log('   Current period end:', new Date(subscription.current_period_end * 1000));
+        // TODO: Update subscription status in your database
+        break;
+      }
+
+      case 'customer.subscription.deleted': {
+        const subscription = event.data.object;
+        console.log('❌ Subscription cancelled:', subscription.id);
+        console.log('   Customer:', subscription.customer);
+        // TODO: Revoke customer access
+        // TODO: Update database to mark subscription as cancelled
+        break;
+      }
+
+      case 'invoice.payment_succeeded': {
+        const invoice = event.data.object;
+        console.log('💰 Payment succeeded for invoice:', invoice.id);
+        console.log('   Amount:', `$${invoice.amount_paid / 100} ${invoice.currency.toUpperCase()}`);
+        console.log('   Customer:', invoice.customer);
+        // TODO: Send receipt email
+        // TODO: Extend subscription access
+        break;
+      }
+
+      case 'invoice.payment_failed': {
+        const invoice = event.data.object;
+        console.log('💥 Payment failed for invoice:', invoice.id);
+        console.log('   Customer:', invoice.customer);
+        console.log('   Amount due:', `$${invoice.amount_due / 100} ${invoice.currency.toUpperCase()}`);
+        // TODO: Send payment failure email to customer
+        // TODO: Notify customer to update payment method
+        break;
+      }
+
+      case 'customer.subscription.trial_will_end': {
+        const subscription = event.data.object;
+        console.log('⏰ Trial ending soon for subscription:', subscription.id);
+        console.log('   Trial ends:', new Date(subscription.trial_end * 1000));
+        // TODO: Send reminder email
+        break;
+      }
+
+      case 'payment_intent.succeeded': {
+        const paymentIntent = event.data.object;
+        console.log('💳 Payment intent succeeded:', paymentIntent.id);
+        break;
+      }
+
+      case 'payment_intent.payment_failed': {
+        const paymentIntent = event.data.object;
+        console.log('❌ Payment intent failed:', paymentIntent.id);
+        break;
+      }
+
+      default:
+        console.log(`⚪ Unhandled event type: ${event.type}`);
+    }
+
+    // Return 200 to acknowledge receipt of event
+    res.json({received: true, eventType: event.type});
+  } catch (error) {
+    console.error('Error processing webhook:', error);
+    // Still return 200 to prevent Stripe from retrying
+    res.status(200).json({received: true, error: error.message});
+  }
+});
+
+// All other routes use JSON middleware
 app.use(express.json());
 
 // Health check endpoint
