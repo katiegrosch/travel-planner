@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Plane, Sparkles } from "lucide-react";
+import { Plane, Sparkles, Globe2, Heart, Headphones } from "lucide-react";
 import heroLlama from "@/assets/hero-llama.png";
 
 const Hero = () => {
@@ -18,7 +18,7 @@ const Hero = () => {
             
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
               Plan Your Dream
-              <span className="block gradient-primary bg-clip-text text-transparent">
+              <span className="block text-primary">
                 Adventure!
               </span>
             </h1>
@@ -42,26 +42,56 @@ const Hero = () => {
               </Link>
             </div>
             
-            <div className="mt-12 flex items-center gap-8 justify-center md:justify-start">
-              <div>
-                <p className="text-3xl font-heading font-bold gradient-primary bg-clip-text text-transparent">
-                  500+
-                </p>
-                <p className="text-sm text-muted-foreground">Destinations</p>
+            <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {/* Destinations Card */}
+              <div className="group bg-gradient-to-br from-orange-50/80 to-yellow-50/80 dark:from-orange-950/20 dark:to-yellow-950/20 rounded-2xl p-6 shadow-soft hover-lift hover:shadow-glow transition-all cursor-pointer border border-orange-100/50 dark:border-orange-900/30">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-400 to-yellow-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                    <Globe2 className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-heading font-semibold mb-1 text-foreground">
+                      Destinations
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Explore top llama-approved spots from Machu Picchu to the Alps.
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className="w-px h-12 bg-border" />
-              <div>
-                <p className="text-3xl font-heading font-bold gradient-primary bg-clip-text text-transparent">
-                  10k+
-                </p>
-                <p className="text-sm text-muted-foreground">Happy Travelers</p>
+
+              {/* Happy Travelers Card */}
+              <div className="group bg-gradient-to-br from-pink-50/80 to-orange-50/80 dark:from-pink-950/20 dark:to-orange-950/20 rounded-2xl p-6 shadow-soft hover-lift hover:shadow-glow transition-all cursor-pointer border border-pink-100/50 dark:border-pink-900/30">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-400 to-orange-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                    <Heart className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-heading font-semibold mb-1 text-foreground">
+                      Happy Travelers
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      See stories from humans who've trotted the world with LlamaTrip.
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className="w-px h-12 bg-border" />
-              <div>
-                <p className="text-3xl font-heading font-bold gradient-primary bg-clip-text text-transparent">
-                  24/7
-                </p>
-                <p className="text-sm text-muted-foreground">Llama Support</p>
+
+              {/* Llama Support Card */}
+              <div className="group bg-gradient-to-br from-yellow-50/80 to-orange-50/80 dark:from-yellow-950/20 dark:to-orange-950/20 rounded-2xl p-6 shadow-soft hover-lift hover:shadow-glow transition-all cursor-pointer border border-yellow-100/50 dark:border-yellow-900/30">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-400 to-orange-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                    <Headphones className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-heading font-semibold mb-1 text-foreground">
+                      Llama Support
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Need help planning your adventure? LlamaTrip's herd is here to guide you.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

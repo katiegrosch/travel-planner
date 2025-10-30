@@ -14,7 +14,7 @@ const Index = () => {
     {
       title: "Tropical Paradise",
       description: "White sand beaches, crystal clear waters, and endless sunshine await you.",
-      llamaComment: "You'll love these beaches - perfect for llama selfies and coconut drinks!",
+      llamaComment: "You'll love these beaches - perfect for llama selfies and coconut drinks! —Lleonard",
       image: beachLlama,
       rating: 4.9,
       location: "Maldives"
@@ -22,7 +22,7 @@ const Index = () => {
     {
       title: "Mountain Adventure",
       description: "Majestic peaks, fresh alpine air, and breathtaking hiking trails.",
-      llamaComment: "This mountain is excellent for selfies with fellow llamas! Trust me, I'm a mountain expert.",
+      llamaComment: "This mountain is excellent for selfies with fellow llamas! Trust me, I'm a mountain expert. —Lleonard",
       image: mountainLlama,
       rating: 4.8,
       location: "Swiss Alps"
@@ -30,7 +30,7 @@ const Index = () => {
     {
       title: "Urban Explorer",
       description: "Vibrant city life, world-class dining, and endless cultural experiences.",
-      llamaComment: "So many food options! I can guide you to the best street tacos in town!",
+      llamaComment: "So many food options! I can guide you to the best street tacos in town! —Lleonard",
       image: cityLlama,
       rating: 4.7,
       location: "Tokyo, Japan"
@@ -70,7 +70,7 @@ const Index = () => {
         <div className="container mx-auto">
           <div className="text-center mb-12 animate-fade-in">
             <h2 className="text-4xl md:text-5xl font-heading font-bold mb-4">
-              Popular <span className="gradient-primary bg-clip-text text-transparent">Destinations</span>
+              Popular <span className="text-primary">Destinations</span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Check out these amazing places that other travelers (and llamas) absolutely love!
@@ -100,7 +100,7 @@ const Index = () => {
         <div className="container mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-heading font-bold mb-4">
-              Why Travel with <span className="gradient-primary bg-clip-text text-transparent">LlamaTrip?</span>
+              Why Travel with <span className="text-primary">LlamaTrip?</span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Because planning your dream vacation should be fun, not stressful!
@@ -137,7 +137,7 @@ const Index = () => {
               Ready to Start Your Adventure?
             </h2>
             <p className="text-lg text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
-              Let's plan something amazing together! I promise to make it fun and stress-free.
+              Let's plan something amazing together! I'm Lleonard, and I promise to make it fun and stress-free.
             </p>
             <Link to="/plan">
               <Button variant="outline" size="lg" className="bg-card hover:bg-card/90">
@@ -156,10 +156,10 @@ const Index = () => {
             <p className="text-lg font-heading font-semibold">LlamaTrip</p>
           </div>
           <p className="text-muted-foreground mb-4">
-            Your friendly travel planning companion
+            Your friendly travel planning companion, featuring Lleonard the llama
           </p>
           <p className="text-sm text-muted-foreground">
-            © 2025 LlamaTrip. Made with ❤️ and llamas.
+            © 2025 Llama, Inc. Made with ❤️ and llamas.
           </p>
         </div>
       </footer>

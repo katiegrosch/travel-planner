@@ -16,10 +16,10 @@ const LlamaNav = () => {
               🦙
             </div>
             <div>
-              <h1 className="text-2xl font-heading font-semibold gradient-primary bg-clip-text text-transparent">
+              <h1 className="text-2xl font-heading font-semibold text-primary">
                 LlamaTrip
               </h1>
-              <p className="text-xs text-muted-foreground">Your Travel Buddy</p>
+              <p className="text-xs text-muted-foreground">by Llama, Inc.</p>
             </div>
           </Link>
 

@@ -67,7 +67,7 @@ const Plan = () => {
             <div className="text-center mb-12">
               <div className="text-6xl mb-6 animate-bounce-gentle">🦙</div>
               <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4">
-                Hi there! I'm <span className="gradient-primary bg-clip-text text-transparent">LlamaTrip</span>
+                Hi there! I'm <span className="text-primary">Lleonard</span>
               </h1>
               <p className="text-lg text-muted-foreground">
                 Tell me what you love, and I'll help you plan the perfect adventure!
@@ -125,7 +125,7 @@ const Plan = () => {
             <div className="text-center mb-12">
               <div className="text-6xl mb-6 animate-wiggle">🦙</div>
               <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4">
-                Perfect! Here are my <span className="gradient-primary bg-clip-text text-transparent">suggestions</span>
+                Perfect! Here are my <span className="text-primary">suggestions</span>
               </h1>
               <p className="text-lg text-muted-foreground">
                 Based on your interests, I think you'll love these destinations!
@@ -138,21 +138,21 @@ const Plan = () => {
                   title: "Santorini, Greece",
                   type: "Beach & Culture",
                   description: "White-washed buildings, stunning sunsets, and amazing Greek food!",
-                  llamaQuote: "The sunsets here are so beautiful, even llamas stop to take pictures! 📸",
+                  llamaQuote: "The sunsets here are so beautiful, even llamas stop to take pictures! 📸 —Lleonard",
                   badges: ["Beaches", "Food & Dining", "Photography"]
                 },
                 {
                   title: "Kyoto, Japan",
                   type: "Culture & Food",
                   description: "Ancient temples, serene gardens, and world-class cuisine.",
-                  llamaQuote: "The cherry blossoms and sushi are absolutely worth the trip!",
+                  llamaQuote: "The cherry blossoms and sushi are absolutely worth the trip! —Lleonard",
                   badges: ["Cities", "Culture & Arts", "Food & Dining"]
                 },
                 {
                   title: "Banff, Canada",
                   type: "Mountain Adventure",
                   description: "Pristine lakes, majestic mountains, and incredible wildlife.",
-                  llamaQuote: "My cousin Larry lives here - he says the hiking is unbe-llama-ble!",
+                  llamaQuote: "My cousin Larry lives here - he says the hiking is unbe-llama-ble! —Lleonard",
                   badges: ["Mountains", "Photography"]
                 }
               ].map((destination, index) => (

@@ -92,7 +92,7 @@ const Itinerary = () => {
           <div className="text-center mb-12 animate-fade-in">
             <div className="text-6xl mb-6 animate-bounce-gentle">🦙</div>
             <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4">
-              Your <span className="gradient-primary bg-clip-text text-transparent">Dream Trip</span>
+              Your <span className="text-primary">Dream Trip</span>
             </h1>
             <p className="text-lg text-muted-foreground">
               Here's your personalized itinerary! Add, edit, or reorder as you like.
@@ -101,24 +101,16 @@ const Itinerary = () => {
 
           {/* Trip Summary */}
           <Card className="p-6 mb-8 shadow-card gradient-secondary">
-            <div className="grid md:grid-cols-3 gap-6 text-center">
-              <div>
-                <p className="text-3xl font-heading font-bold text-secondary-foreground mb-1">
-                  {items.length}
+            <div className="flex items-center gap-4">
+              <div className="text-5xl animate-wiggle">🦙</div>
+              <div className="flex-1">
+                <h3 className="text-2xl font-heading font-semibold text-secondary-foreground mb-2">
+                  Your Personalized Adventure by Llama, Inc.
+                </h3>
+                <p className="text-secondary-foreground/90">
+                  Lleonard here! I've helped organize {items.length} amazing activities for your trip. 
+                  Each one is hand-picked with llama love and expertise. Let's make this journey unforgettable! ✨
                 </p>
-                <p className="text-sm text-secondary-foreground/80">Total Items</p>
-              </div>
-              <div>
-                <p className="text-3xl font-heading font-bold text-secondary-foreground mb-1">
-                  7 Days
-                </p>
-                <p className="text-sm text-secondary-foreground/80">Trip Duration</p>
-              </div>
-              <div>
-                <p className="text-3xl font-heading font-bold text-secondary-foreground mb-1">
-                  3 Cities
-                </p>
-                <p className="text-sm text-secondary-foreground/80">Destinations</p>
               </div>
             </div>
           </Card>
@@ -205,11 +197,11 @@ const Itinerary = () => {
               <div className="text-4xl animate-wiggle">🦙</div>
               <div>
                 <h3 className="text-xl font-heading font-semibold text-primary-foreground mb-2">
-                  Llama Travel Tip
+                  Lleonard's Travel Tip
                 </h3>
                 <p className="text-primary-foreground/90">
                   Don't forget to pack light and leave room for souvenirs! And remember - 
-                  the best travel companion is a happy llama (like me)! Have an amazing trip! 🌍✨
+                  the best travel companion is a happy llama (like me)! Have an amazing trip! 🌍✨ —Lleonard
                 </p>
               </div>
             </div>
