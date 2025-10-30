@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import LlamaNav from "@/components/LlamaNav";
 import Hero from "@/components/Hero";
 import DestinationCard from "@/components/DestinationCard";
@@ -5,12 +7,37 @@ import SubscribeButton from "@/components/SubscribeButton";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Heart, Compass, Calendar, Shield } from "lucide-react";
+import { toast } from "sonner";
 
 import beachLlama from "@/assets/beach-llama.png";
 import mountainLlama from "@/assets/mountain-llama.png";
 import cityLlama from "@/assets/city-llama.png";
 
 const Index = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    const subscribed = searchParams.get('subscribed');
+    
+    if (subscribed === 'success') {
+      toast.success("🎉 Welcome to LlamaTrip!", {
+        description: "You're now subscribed! Lleonard is excited to help you plan amazing adventures.",
+        duration: 5000,
+      });
+      // Clean up the URL
+      searchParams.delete('subscribed');
+      searchParams.delete('session_id');
+      setSearchParams(searchParams, { replace: true });
+    } else if (subscribed === 'cancelled') {
+      toast.info("Checkout Cancelled", {
+        description: "No worries! You can subscribe anytime when you're ready.",
+        duration: 4000,
+      });
+      // Clean up the URL
+      searchParams.delete('subscribed');
+      setSearchParams(searchParams, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
   const featuredDestinations = [
     {
       title: "Tropical Paradise",
