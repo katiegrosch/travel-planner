@@ -36,8 +36,8 @@ app.post('/api/create-checkout-session', async (req, res) => {
           quantity: 1,
         },
       ],
-      success_url: `${process.env.VITE_APP_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.VITE_APP_URL}/cancel`,
+      success_url: `${process.env.VITE_APP_URL}/?subscribed=success&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.VITE_APP_URL}/?subscribed=cancelled`,
       billing_address_collection: 'auto',
       metadata: {
         product: 'LlamaTrip Travel Planning'
