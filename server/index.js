@@ -5,10 +5,13 @@ import 'dotenv/config';
 import * as Sentry from '@sentry/node';
 
 // Initialize Sentry BEFORE creating the Express app
+const isProduction = process.env.NODE_ENV === 'production';
+
 Sentry.init({
   dsn: process.env.SENTRY_DSN_BACKEND,
   environment: process.env.NODE_ENV || 'development',
-  tracesSampleRate: 1.0, // Capture 100% of transactions
+  // Lower sample rate in production to reduce costs
+  tracesSampleRate: isProduction ? 0.1 : 1.0,
   // Performance monitoring
   integrations: [
     // Enable HTTP calls tracing
