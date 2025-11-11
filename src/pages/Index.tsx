@@ -203,8 +203,8 @@ const Index = () => {
         </div>
       </footer>
       
-      {/* Show Sentry test controls in development */}
-      {import.meta.env.DEV && <SentryTestButton />}
+      {/* Sentry test controls */}
+      <SentryTestButton />
     </div>
   );
 };
