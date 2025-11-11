@@ -4,7 +4,9 @@ import cors from 'cors';
 import 'dotenv/config';
 import * as Sentry from '@sentry/node';
 
-// Initialize Sentry BEFORE creating the Express app
+const app = express();
+
+// Initialize Sentry AFTER creating the Express app
 const isProduction = process.env.NODE_ENV === 'production';
 
 Sentry.init({
@@ -12,16 +14,11 @@ Sentry.init({
   environment: process.env.NODE_ENV || 'development',
   // Lower sample rate in production to reduce costs
   tracesSampleRate: isProduction ? 0.1 : 1.0,
-  // Performance monitoring
   integrations: [
-    // Enable HTTP calls tracing
-    new Sentry.Integrations.Http({ tracing: true }),
-    // Enable Express.js middleware tracing
-    new Sentry.Integrations.Express({ app }),
+    // Automatically instrument Node.js libraries and frameworks
+    ...Sentry.autoDiscoverNodePerformanceMonitoringIntegrations(),
   ],
 });
-
-const app = express();
 
 // RequestHandler creates a separate execution context using domains
 app.use(Sentry.Handlers.requestHandler());
