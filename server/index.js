@@ -6,7 +6,7 @@ import * as Sentry from '@sentry/node';
 
 const app = express();
 
-// Initialize Sentry AFTER creating the Express app
+// Initialize Sentry
 const isProduction = process.env.NODE_ENV === 'production';
 
 Sentry.init({
@@ -14,10 +14,7 @@ Sentry.init({
   environment: process.env.NODE_ENV || 'development',
   // Lower sample rate in production to reduce costs
   tracesSampleRate: isProduction ? 0.1 : 1.0,
-  integrations: [
-    // Automatically instrument Node.js libraries and frameworks
-    ...Sentry.autoDiscoverNodePerformanceMonitoringIntegrations(),
-  ],
+  // Sentry will automatically add appropriate integrations
 });
 
 // RequestHandler creates a separate execution context using domains
