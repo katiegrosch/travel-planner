@@ -4,9 +4,7 @@ import cors from 'cors';
 import 'dotenv/config';
 import * as Sentry from '@sentry/node';
 
-const app = express();
-
-// Initialize Sentry
+// Initialize Sentry (must be first)
 const isProduction = process.env.NODE_ENV === 'production';
 
 Sentry.init({
@@ -14,13 +12,9 @@ Sentry.init({
   environment: process.env.NODE_ENV || 'development',
   // Lower sample rate in production to reduce costs
   tracesSampleRate: isProduction ? 0.1 : 1.0,
-  // Sentry will automatically add appropriate integrations
 });
 
-// RequestHandler creates a separate execution context using domains
-app.use(Sentry.Handlers.requestHandler());
-// TracingHandler creates a trace for every incoming request
-app.use(Sentry.Handlers.tracingHandler());
+const app = express();
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -209,11 +203,10 @@ app.get('/api/checkout-session/:sessionId', async (req, res) => {
   }
 });
 
-// The Sentry error handler must be registered before any other error middleware and after all controllers
-app.use(Sentry.Handlers.errorHandler());
-
-// Optional: Add custom error handler
+// Custom error handler - Sentry will automatically capture errors
 app.use((err, req, res, next) => {
+  // Manually capture error with Sentry
+  Sentry.captureException(err);
   console.error('Error:', err);
   res.status(err.status || 500).json({
     error: err.message || 'Internal server error',
