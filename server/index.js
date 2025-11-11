@@ -2,8 +2,29 @@ import Stripe from 'stripe';
 import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
+import * as Sentry from '@sentry/node';
+
+// Initialize Sentry BEFORE creating the Express app
+Sentry.init({
+  dsn: process.env.SENTRY_DSN_BACKEND,
+  environment: process.env.NODE_ENV || 'development',
+  tracesSampleRate: 1.0, // Capture 100% of transactions
+  // Performance monitoring
+  integrations: [
+    // Enable HTTP calls tracing
+    new Sentry.Integrations.Http({ tracing: true }),
+    // Enable Express.js middleware tracing
+    new Sentry.Integrations.Express({ app }),
+  ],
+});
 
 const app = express();
+
+// RequestHandler creates a separate execution context using domains
+app.use(Sentry.Handlers.requestHandler());
+// TracingHandler creates a trace for every incoming request
+app.use(Sentry.Handlers.tracingHandler());
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // Middleware
@@ -120,6 +141,12 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', service: 'LlamaTrip Payments API' });
 });
 
+// Sentry test endpoint
+app.get('/api/sentry-test', (req, res) => {
+  // This will be caught by Sentry's error handler
+  throw new Error('🦙 Backend Sentry Test Error - This is intentional!');
+});
+
 // Create Stripe Checkout Session
 app.post('/api/create-checkout-session', async (req, res) => {
   try {
@@ -185,10 +212,27 @@ app.get('/api/checkout-session/:sessionId', async (req, res) => {
   }
 });
 
+// The Sentry error handler must be registered before any other error middleware and after all controllers
+app.use(Sentry.Handlers.errorHandler());
+
+// Optional: Add custom error handler
+app.use((err, req, res, next) => {
+  console.error('Error:', err);
+  res.status(err.status || 500).json({
+    error: err.message || 'Internal server error',
+    ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
+  });
+});
+
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
   console.log(`🦙 LlamaTrip Payments API running on http://localhost:${PORT}`);
   console.log(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
+  if (process.env.SENTRY_DSN_BACKEND) {
+    console.log('✅ Sentry initialized for backend');
+  } else {
+    console.warn('⚠️  Sentry DSN not configured for backend');
+  }
 });
 

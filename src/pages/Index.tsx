@@ -4,6 +4,7 @@ import LlamaNav from "@/components/LlamaNav";
 import Hero from "@/components/Hero";
 import DestinationCard from "@/components/DestinationCard";
 import SubscribeButton from "@/components/SubscribeButton";
+import SentryTestButton from "@/components/SentryTestButton";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Heart, Compass, Calendar, Shield } from "lucide-react";
@@ -201,6 +202,9 @@ const Index = () => {
           </p>
         </div>
       </footer>
+      
+      {/* Show Sentry test controls in development */}
+      {import.meta.env.DEV && <SentryTestButton />}
     </div>
   );
 };
